@@ -6,8 +6,6 @@ tags: ["sveltekit", "web-development", "tutorial"]
 published: true
 ---
 
-# Building a Personal Site with SvelteKit and mdsvex
-
 When I decided to build a personal site, I had a few requirements:
 
 1. **Static site** - fast, cheap to host, SEO-friendly

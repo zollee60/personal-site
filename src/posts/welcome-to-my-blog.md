@@ -6,8 +6,6 @@ tags: ["general", "introduction"]
 published: true
 ---
 
-# Welcome to My Blog
-
 Hello and welcome! I'm Márk, a Senior Fullstack Developer based in Budapest, Hungary. This blog is where I'll share my thoughts, experiences, and learnings from the world of software development.
 
 ## What to Expect
