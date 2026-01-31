@@ -215,7 +215,7 @@
 	<div class="py-8 text-center print:hidden">
 		<a
 			href="{base}/cv_26_en.pdf"
-			download="Toth_Mark_Zoltan_CV.html"
+			download="Toth_Mark_Zoltan_CV.pdf"
 			class="inline-flex items-center gap-2 rounded border border-dark/20 bg-white px-6 py-3 font-mono text-sm font-medium text-dark transition-colors hover:border-accent-green hover:text-accent-green"
 		>
 			<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
