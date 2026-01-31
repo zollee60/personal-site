@@ -5,3 +5,4 @@ export { default as Card } from './Card.svelte';
 export { default as Timeline } from './Timeline.svelte';
 export { default as Tag } from './Tag.svelte';
 export { default as Marquee } from './Marquee.svelte';
+export { default as AnimatedGrid } from './AnimatedGrid.svelte';

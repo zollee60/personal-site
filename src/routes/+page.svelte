@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Card, Tag } from '$lib/components';
+	import { Card, Tag, AnimatedGrid } from '$lib/components';
 	import { cvData } from '$lib/data/cv';
 	import { formatDate } from '$lib/utils/posts';
 	import type { PageData } from './$types';
@@ -16,8 +16,11 @@
 </svelte:head>
 
 <!-- Main Hero Section -->
-<section class="flex min-h-[calc(100vh-73px)] items-center py-12 md:py-16">
-	<div class="mx-auto w-full max-w-7xl px-4 lg:px-8">
+<section class="relative flex min-h-[calc(100vh-73px)] items-center overflow-hidden py-12 md:py-16">
+	<!-- Animated Grid Background -->
+	<AnimatedGrid />
+
+	<div class="relative z-10 mx-auto w-full max-w-7xl px-4 lg:px-8">
 		<div class="grid gap-12 lg:grid-cols-2 lg:gap-12 xl:gap-16">
 			<!-- Left Side: Introduction -->
 			<div class="flex flex-col justify-center">
@@ -79,21 +82,8 @@
 				</div>
 			</div>
 
-			<!-- Right Side: Tech Stack, Current Role, Blog Posts -->
+			<!-- Right Side: Current Role, Blog Posts, Tech Stack -->
 			<div class="flex flex-col justify-center gap-6">
-				<!-- Tech Stack Cloud -->
-				<div class="rounded-lg border border-dark-border bg-dark-lighter p-5">
-					<div class="flex flex-wrap gap-2">
-						{#each cvData.techStack as tech}
-							<span
-								class="inline-block cursor-default rounded-full bg-accent-green/20 px-3 py-1.5 font-mono text-xs font-medium text-accent-green transition-all duration-200 hover:scale-110 hover:bg-accent-green hover:text-dark hover:shadow-lg hover:shadow-accent-green/25"
-							>
-								{tech}
-							</span>
-						{/each}
-					</div>
-				</div>
-
 				<!-- Current Role -->
 				<Card>
 					<div class="flex flex-col gap-3">
@@ -135,6 +125,19 @@
 						{/each}
 					</div>
 				{/if}
+
+				<!-- Tech Stack Cloud -->
+				<div class="rounded-lg border border-dark-border bg-dark-lighter p-5">
+					<div class="flex flex-wrap gap-2">
+						{#each cvData.techStack as tech}
+							<span
+								class="inline-block cursor-default rounded-full bg-accent-green/20 px-3 py-1.5 font-mono text-xs font-medium text-accent-green transition-all duration-200 hover:scale-110 hover:bg-accent-green hover:text-dark hover:shadow-lg hover:shadow-accent-green/25"
+							>
+								{tech}
+							</span>
+						{/each}
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
