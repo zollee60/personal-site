@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { Section, Tag } from '$lib/components';
 	import { formatDate } from '$lib/utils/posts';
 	import type { PageData } from './$types';
@@ -19,7 +20,7 @@
 			<h1 class="mt-2 font-mono text-3xl font-bold uppercase tracking-tight md:text-4xl">
 				#{data.tag}
 			</h1>
-			<a href="/blog" class="mt-4 inline-block font-mono text-sm text-light/60 hover:text-accent-green">
+			<a href="{base}/blog" class="mt-4 inline-block font-mono text-sm text-light/60 hover:text-accent-green">
 				← All posts
 			</a>
 		</div>
@@ -31,12 +32,12 @@
 			<div class="grid gap-6 md:grid-cols-2">
 				{#each data.posts as post}
 					<a
-						href="/blog/{post.slug}"
+						href="{base}/blog/{post.slug}"
 						class="group rounded-lg border border-dark/20 bg-white p-6 transition-all hover:border-accent-green hover:shadow-lg"
 					>
 						<div class="mb-3 flex flex-wrap gap-2">
 							{#each post.tags as tag}
-								<Tag label={tag} href="/blog/tag/{tag}" variant={tag === data.tag ? 'green' : 'blue'} />
+								<Tag label={tag} href="{base}/blog/tag/{tag}" variant={tag === data.tag ? 'green' : 'blue'} />
 							{/each}
 						</div>
 						<h2 class="font-mono text-lg font-bold text-dark transition-colors group-hover:text-accent-green">

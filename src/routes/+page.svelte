@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { Card, Tag, AnimatedGrid } from '$lib/components';
 	import { cvData } from '$lib/data/cv';
 	import { formatDate } from '$lib/utils/posts';
@@ -68,13 +69,13 @@
 				<!-- CTA Buttons -->
 				<div class="mt-8 flex flex-wrap gap-4">
 					<a
-						href="/cv"
+						href="{base}/cv"
 						class="inline-flex items-center rounded bg-accent-green px-6 py-3 font-mono text-sm font-medium uppercase tracking-wide text-dark transition-colors hover:bg-accent-green/90"
 					>
 						View Full CV
 					</a>
 					<a
-						href="/blog"
+						href="{base}/blog"
 						class="inline-flex items-center rounded border border-dark-border px-6 py-3 font-mono text-sm font-medium uppercase tracking-wide text-light transition-colors hover:border-accent-green/50 hover:bg-dark-lighter"
 					>
 						Read Blog
@@ -109,7 +110,7 @@
 					<div class="grid gap-3">
 						{#each data.posts.slice(0, 3) as post}
 							<a
-								href="/blog/{post.slug}"
+								href="{base}/blog/{post.slug}"
 								class="group block rounded-lg border border-dark-border bg-dark-lighter p-4 transition-all hover:border-accent-blue/50 hover:shadow-lg hover:shadow-accent-blue/10"
 							>
 								<div class="mb-2 flex flex-wrap gap-2">

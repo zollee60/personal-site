@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { Tag } from '$lib/components';
 	import { formatDate } from '$lib/utils/posts';
 	import type { PageData } from './$types';
@@ -17,7 +18,7 @@
 		<div class="mx-auto max-w-3xl px-4">
 			<div class="mb-4 flex flex-wrap gap-2">
 				{#each data.meta.tags as tag}
-					<Tag label={tag} href="/blog/tag/{tag}" variant="blue" />
+					<Tag label={tag} href="{base}/blog/tag/{tag}" variant="blue" />
 				{/each}
 			</div>
 			<h1 class="font-mono text-3xl font-bold md:text-4xl">
@@ -36,7 +37,7 @@
 
 			<!-- Back Link -->
 			<div class="mt-12 border-t border-dark/10 pt-8">
-				<a href="/blog" class="font-mono text-sm text-accent-green hover:underline">
+				<a href="{base}/blog" class="font-mono text-sm text-accent-green hover:underline">
 					← Back to all posts
 				</a>
 			</div>

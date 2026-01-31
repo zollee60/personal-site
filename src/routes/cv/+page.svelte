@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { Section, Timeline, Tag } from '$lib/components';
 	import { cvData } from '$lib/data/cv';
 
@@ -213,7 +214,7 @@
 	<!-- Download Button -->
 	<div class="py-8 text-center print:hidden">
 		<a
-			href="/cv_en.html"
+			href="{base}/cv_en.html"
 			download="Toth_Mark_Zoltan_CV.html"
 			class="inline-flex items-center gap-2 rounded border border-dark/20 bg-white px-6 py-3 font-mono text-sm font-medium text-dark transition-colors hover:border-accent-green hover:text-accent-green"
 		>

@@ -1,11 +1,13 @@
 <script lang="ts">
+	import { base } from '$app/paths';
+
 	let { class: className = '' } = $props();
 	let mobileMenuOpen = $state(false);
 
 	const navLinks = [
-		{ href: '/', label: 'Home' },
-		{ href: '/cv', label: 'CV' },
-		{ href: '/blog', label: 'Blog' }
+		{ href: `${base}/`, label: 'Home' },
+		{ href: `${base}/cv`, label: 'CV' },
+		{ href: `${base}/blog`, label: 'Blog' }
 	];
 </script>
 
@@ -13,7 +15,7 @@
 	class="sticky top-0 z-50 border-b border-dark-border bg-dark/95 font-mono backdrop-blur-sm {className}"
 >
 	<nav class="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
-		<a href="/" class="text-xl font-bold text-light transition-colors hover:text-accent-green">
+		<a href="{base}/" class="text-xl font-bold text-light transition-colors hover:text-accent-green">
 			TMZ<span class="text-accent-green">.</span>
 		</a>
 

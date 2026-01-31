@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { Section, Card, Tag } from '$lib/components';
 	import { formatDate } from '$lib/utils/posts';
 	import type { PageData } from './$types';
@@ -30,13 +31,13 @@
 			<div class="flex flex-wrap items-center gap-2">
 				<span class="font-mono text-sm text-dark/60">Filter by tag:</span>
 				<a
-					href="/blog"
+					href="{base}/blog"
 					class="rounded-full bg-accent-green px-3 py-1 font-mono text-xs font-medium uppercase tracking-wide text-dark transition-colors hover:bg-accent-green/80"
 				>
 					All
 				</a>
 				{#each data.tags as tag}
-					<Tag label={tag} href="/blog/tag/{tag}" variant="blue" />
+					<Tag label={tag} href="{base}/blog/tag/{tag}" variant="blue" />
 				{/each}
 			</div>
 		</Section>
@@ -48,7 +49,7 @@
 			<div class="grid gap-6 md:grid-cols-2">
 				{#each data.posts as post}
 					<a
-						href="/blog/{post.slug}"
+						href="{base}/blog/{post.slug}"
 						class="group rounded-lg border border-dark/20 bg-white p-6 transition-all hover:border-accent-green hover:shadow-lg"
 					>
 						<div class="mb-3 flex flex-wrap gap-2">
