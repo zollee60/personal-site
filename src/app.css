@@ -1,0 +1,31 @@
+@import 'tailwindcss';
+
+@theme {
+	--font-mono: 'JetBrains Mono', monospace;
+	--color-dark: #1f1f1f;
+	--color-dark-lighter: #2a2a2a;
+	--color-dark-border: #3a3a3a;
+	--color-light: #f5f5f5;
+	--color-accent-green: #00d09c;
+	--color-accent-blue: #3b82f6;
+	--color-accent-amber: #f59e0b;
+	--color-muted: #888888;
+}
+
+@keyframes marquee {
+	0% {
+		transform: translateX(0%);
+	}
+	100% {
+		transform: translateX(-50%);
+	}
+}
+
+@keyframes marquee-reverse {
+	0% {
+		transform: translateX(-50%);
+	}
+	100% {
+		transform: translateX(0%);
+	}
+}
