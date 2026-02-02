@@ -54,3 +54,27 @@ export function formatDate(dateString: string): string {
 		day: 'numeric'
 	});
 }
+
+export function formatMonthYear(dateString: string): string {
+	const date = new Date(dateString);
+	return date.toLocaleDateString('en-US', {
+		year: 'numeric',
+		month: 'long'
+	});
+}
+
+export async function getAllMonths(): Promise<string[]> {
+	const posts = await getPosts();
+	const monthsSet = new Set<string>();
+
+	posts.forEach((post) => {
+		monthsSet.add(formatMonthYear(post.date));
+	});
+
+	// Sort chronologically (most recent first)
+	return Array.from(monthsSet).sort((a, b) => {
+		const dateA = new Date(a);
+		const dateB = new Date(b);
+		return dateB.getTime() - dateA.getTime();
+	});
+}
