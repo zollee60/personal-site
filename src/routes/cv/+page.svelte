@@ -1,36 +1,54 @@
 <script lang="ts">
+	import { tick } from 'svelte';
 	import { base } from '$app/paths';
 	import { Section, Timeline, Tag } from '$lib/components';
 	import { cvData } from '$lib/data/cv';
 
 	const HCAPTCHA_SITE_KEY = 'd0a640d2-1b8e-42aa-beb0-38a8f6843ffa';
+	const CAPTCHA_CONTAINER_ID = 'hcaptcha-container';
 
 	let emailRevealed = $state(false);
 	let cvUnlocked = $state(false);
 	let captchaTarget = $state<'email' | 'cv' | null>(null);
 	let captchaLoaded = $state(false);
 
-	function loadCaptchaScript() {
-		if (!captchaLoaded) {
+	function loadCaptchaScript(): Promise<void> {
+		return new Promise((resolve) => {
+			if (captchaLoaded) {
+				resolve();
+				return;
+			}
 			const script = document.createElement('script');
-			script.src = 'https://js.hcaptcha.com/1/api.js';
+			script.src = 'https://js.hcaptcha.com/1/api.js?render=explicit';
 			script.async = true;
 			script.defer = true;
 			script.onload = () => {
 				captchaLoaded = true;
+				resolve();
 			};
 			document.head.appendChild(script);
-		}
+		});
+	}
+
+	async function renderCaptcha() {
+		await loadCaptchaScript();
+		await tick();
+		const hcaptcha = (window as unknown as { hcaptcha: { render: (id: string, opts: object) => void } }).hcaptcha;
+		hcaptcha.render(CAPTCHA_CONTAINER_ID, {
+			sitekey: HCAPTCHA_SITE_KEY,
+			callback: 'onCaptchaSuccess',
+			theme: 'dark'
+		});
 	}
 
 	function handleRevealEmail() {
 		captchaTarget = 'email';
-		loadCaptchaScript();
+		renderCaptcha();
 	}
 
 	function handleDownloadCV() {
 		captchaTarget = 'cv';
-		loadCaptchaScript();
+		renderCaptcha();
 	}
 
 	function onCaptchaSuccess() {
@@ -169,10 +187,8 @@
 					<div class="rounded-lg border border-dark-border bg-dark-lighter p-6">
 						<h3 class="mb-4 font-mono text-lg font-bold text-light">Verify you're human</h3>
 						<div
+							id={CAPTCHA_CONTAINER_ID}
 							class="h-captcha"
-							data-sitekey={HCAPTCHA_SITE_KEY}
-							data-callback="onCaptchaSuccess"
-							data-theme="dark"
 						></div>
 						<button
 							onclick={() => (captchaTarget = null)}
