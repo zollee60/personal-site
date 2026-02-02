@@ -6,11 +6,11 @@
 	const HCAPTCHA_SITE_KEY = 'd0a640d2-1b8e-42aa-beb0-38a8f6843ffa';
 
 	let emailRevealed = $state(false);
-	let showCaptcha = $state(false);
+	let cvUnlocked = $state(false);
+	let captchaTarget = $state<'email' | 'cv' | null>(null);
 	let captchaLoaded = $state(false);
 
-	function handleRevealEmail() {
-		showCaptcha = true;
+	function loadCaptchaScript() {
 		if (!captchaLoaded) {
 			const script = document.createElement('script');
 			script.src = 'https://js.hcaptcha.com/1/api.js';
@@ -23,9 +23,23 @@
 		}
 	}
 
+	function handleRevealEmail() {
+		captchaTarget = 'email';
+		loadCaptchaScript();
+	}
+
+	function handleDownloadCV() {
+		captchaTarget = 'cv';
+		loadCaptchaScript();
+	}
+
 	function onCaptchaSuccess() {
-		emailRevealed = true;
-		showCaptcha = false;
+		if (captchaTarget === 'email') {
+			emailRevealed = true;
+		} else if (captchaTarget === 'cv') {
+			cvUnlocked = true;
+		}
+		captchaTarget = null;
 	}
 
 	// Make callback available globally for hCaptcha
@@ -113,8 +127,44 @@
 				</a>
 			</div>
 
+			<!-- Download CV Button -->
+			<div class="mt-6">
+				{#if cvUnlocked}
+					<a
+						href="{base}/cv_26_en.pdf"
+						download="Toth_Mark_Zoltan_CV.pdf"
+						class="inline-flex items-center gap-2 rounded border border-accent-green bg-accent-green/10 px-6 py-3 font-mono text-sm font-medium text-accent-green transition-colors hover:bg-accent-green hover:text-dark"
+					>
+						<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+							/>
+						</svg>
+						Download CV
+					</a>
+				{:else}
+					<button
+						onclick={handleDownloadCV}
+						class="inline-flex items-center gap-2 rounded border border-light/30 px-6 py-3 font-mono text-sm font-medium text-light/70 transition-colors hover:border-accent-green hover:text-accent-green"
+					>
+						<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+							/>
+						</svg>
+						Download CV
+					</button>
+				{/if}
+			</div>
+
 			<!-- hCaptcha Modal -->
-			{#if showCaptcha}
+			{#if captchaTarget}
 				<div class="fixed inset-0 z-50 flex items-center justify-center bg-dark/80 backdrop-blur-sm">
 					<div class="rounded-lg border border-dark-border bg-dark-lighter p-6">
 						<h3 class="mb-4 font-mono text-lg font-bold text-light">Verify you're human</h3>
@@ -125,7 +175,7 @@
 							data-theme="dark"
 						></div>
 						<button
-							onclick={() => (showCaptcha = false)}
+							onclick={() => (captchaTarget = null)}
 							class="mt-4 font-mono text-sm text-muted hover:text-light"
 						>
 							Cancel
@@ -213,20 +263,37 @@
 
 	<!-- Download Button -->
 	<div class="py-8 text-center print:hidden">
-		<a
-			href="{base}/cv_26_en.pdf"
-			download="Toth_Mark_Zoltan_CV.pdf"
-			class="inline-flex items-center gap-2 rounded border border-dark/20 bg-white px-6 py-3 font-mono text-sm font-medium text-dark transition-colors hover:border-accent-green hover:text-accent-green"
-		>
-			<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-				/>
-			</svg>
-			Download CV
-		</a>
+		{#if cvUnlocked}
+			<a
+				href="{base}/cv_26_en.pdf"
+				download="Toth_Mark_Zoltan_CV.pdf"
+				class="inline-flex items-center gap-2 rounded border border-dark/20 bg-white px-6 py-3 font-mono text-sm font-medium text-dark transition-colors hover:border-accent-green hover:text-accent-green"
+			>
+				<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+					/>
+				</svg>
+				Download CV
+			</a>
+		{:else}
+			<button
+				onclick={handleDownloadCV}
+				class="inline-flex items-center gap-2 rounded border border-dark/20 bg-white px-6 py-3 font-mono text-sm font-medium text-dark transition-colors hover:border-accent-green hover:text-accent-green"
+			>
+				<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+					/>
+				</svg>
+				Download CV
+			</button>
+		{/if}
 	</div>
 </div>
