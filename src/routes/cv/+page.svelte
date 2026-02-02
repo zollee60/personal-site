@@ -128,7 +128,7 @@
 			</div>
 
 			<!-- Download CV Button -->
-			<div class="mt-6">
+			<div class="mt-6 text-center">
 				{#if cvUnlocked}
 					<a
 						href="{base}/cv_26_en.pdf"
